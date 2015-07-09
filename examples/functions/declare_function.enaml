@@ -1,0 +1,34 @@
+#------------------------------------------------------------------------------
+# Copyright (c) 2015, Nucleic Development Team.
+#
+# Distributed under the terms of the Modified BSD License.
+#
+# The full license is in the file COPYING.txt, distributed with this software.
+#------------------------------------------------------------------------------
+""" An example which demonstrates the use of the `func` keyword.
+
+Code in the body of the function has access to the same scope as a bound
+expression. This consists of an implicity `self` which resolves to the
+object on which the function was declared, as well as the identifiers
+declared in the enclosing `enamldef` block. It also has access to the
+dynamic scope which is rooted on `self`.
+
+<< autodoc-me >>
+"""
+from enaml.widgets.api import Window, PushButton, SpinBox, Container
+
+
+enamldef Main(Window):
+    attr thing = 'twelve'
+    attr thing2 = 'nine'
+
+    func do_thing(param):
+       print thing, self.thing2, sbox.value, param
+
+    Container:
+        SpinBox: sbox:
+            maximum = 100
+            minimum = 0
+        PushButton:
+            text = 'Click Me'
+            clicked :: do_thing(42)
